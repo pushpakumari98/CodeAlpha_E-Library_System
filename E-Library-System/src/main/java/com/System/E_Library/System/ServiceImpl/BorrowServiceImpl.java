@@ -18,7 +18,6 @@ import com.System.E_Library.System.Service.BorrowService;
 @Service
 public class BorrowServiceImpl implements BorrowService {
 
-
     @Autowired
     private BookRepo bookRepo;
 
@@ -28,21 +27,22 @@ public class BorrowServiceImpl implements BorrowService {
     @Autowired
     private BorrowRepo borrowRepo;
 
-
     @Override
     public String addBorrow(BorrowSaveDto borrowSaveDto) {
 
         Borrow borrow = new Borrow(
-
-                bookRepo.getById(borrowSaveDto.getBookId()),
-                userRepo.getById(borrowSaveDto.getUserId()),
+                borrowSaveDto.getBookId(),
+                borrowSaveDto.getBookTitle(),
+                borrowSaveDto.getAuthorName(),
+                borrowSaveDto.getPublisherName(),
+                borrowSaveDto.getBorrowerName(),
                 borrowSaveDto.getBorrowDate(),
-                borrowSaveDto.getReturnDate()
-
+                borrowSaveDto.getReturnDate(),
+                borrowSaveDto.getFine()
         );
         borrowRepo.save(borrow);
 
-        return null;
+        return "Borrow record added successfully.";
     }
 
     @Override
@@ -51,54 +51,58 @@ public class BorrowServiceImpl implements BorrowService {
         List<Borrow> getBorrow = borrowRepo.findAll();
         List<BorrowDto> borrowDtoList = new ArrayList<>();
 
-        for(Borrow borrow : getBorrow)
-        {
+        for (Borrow borrow : getBorrow) {
             BorrowDto borrowDto = new BorrowDto(
-                    borrow.getId(),
-                    borrow.getBook(),
-                    borrow.getUser(),
+                    borrow.getBookId(),
+                    borrow.getBookTitle(),
+                    borrow.getAuthorName(),
+                    borrow.getPublisherName(),
+                    borrow.getBorrowerName(),
                     borrow.getBorrowDate(),
-                    borrow.getReturnDate()
-
+                    borrow.getReturnDate(),
+                    borrow.getFine()
             );
             borrowDtoList.add(borrowDto);
-
         }
         return borrowDtoList;
-
-
     }
 
     @Override
     public String updateBorrow(BorrowUpdateDto borrowUpdateDto) {
 
         try {
+            if (borrowRepo.existsById(borrowUpdateDto.getBookId())) {
+                Borrow borrow = borrowRepo.getById(borrowUpdateDto.getBookId());
 
+                if (borrowUpdateDto.getBookTitle() != null) {
+                    borrow.setBookTitle(borrowUpdateDto.getBookTitle());
+                }
+                if (borrowUpdateDto.getAuthorName() != null) {
+                    borrow.setAuthorName(borrowUpdateDto.getAuthorName());
+                }
+                if (borrowUpdateDto.getPublisherName() != null) {
+                    borrow.setPublisherName(borrowUpdateDto.getPublisherName());
+                }
+                if (borrowUpdateDto.getBorrowerName() != null) {
+                    borrow.setBorrowerName(borrowUpdateDto.getBorrowerName());
+                }
+                if (borrowUpdateDto.getBorrowDate() != null) {
+                    borrow.setBorrowDate(borrowUpdateDto.getBorrowDate());
+                }
+                if (borrowUpdateDto.getReturnDate() != null) {
+                    borrow.setReturnDate(borrowUpdateDto.getReturnDate());
+                }
+                if (borrowUpdateDto.getFine() != 0) {
+                    borrow.setFine(borrowUpdateDto.getFine());
+                }
 
-        if(borrowRepo.existsById(borrowUpdateDto.getId())) {
-            Borrow borrow = borrowRepo.getById(borrowUpdateDto.getId());
-            borrow.setBook(bookRepo.getById(borrowUpdateDto.getBookId()));
-            borrow.setUser(userRepo.getById(borrowUpdateDto.getUserId()));
-            borrow.setBorrowDate(borrowUpdateDto.getBorrowDate());
-            borrow.setReturnDate(borrowUpdateDto.getReturnDate());
-
-            borrowRepo.save(borrow);
-
-            return "Borrow updated successfully.";
-
+                borrowRepo.save(borrow);
+                return "Borrow record updated successfully.";
+            } else {
+                return "Borrow record not found.";
+            }
+        } catch (Exception ex) {
+            return "Error while updating borrow record: " + ex.getMessage();
         }
-        else
-        {
-            System.out.println("Borrow ID Not Found");
-        }
-
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex);
-        }
-        return null;
-
-
     }
 }

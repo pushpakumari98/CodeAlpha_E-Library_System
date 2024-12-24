@@ -1,13 +1,18 @@
 package com.System.E_Library.System.Controller;
 
+import com.System.E_Library.System.Entity.Book;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
-public class ReturnController {
-   
+public class ViewController {
+
+
 
     @GetMapping("/return")
     public String returnPage() {
@@ -20,7 +25,6 @@ public class ReturnController {
         return "redirect:/"; // Redirects back to homepage
     }
 
-    
     @GetMapping("/borrow")
     public String borrowPage() {
         return "borrow"; // Renders return.html
@@ -31,4 +35,6 @@ public class ReturnController {
         System.out.println("Borrowing book with ID: " + bookId);
         return "redirect:/"; // Redirects back to homepage
     }
+
+
 }

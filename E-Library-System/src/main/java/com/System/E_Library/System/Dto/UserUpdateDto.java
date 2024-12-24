@@ -11,4 +11,16 @@ public class UserUpdateDto {
     private int userId;
     private String userName;
     private String userEmail;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
 }

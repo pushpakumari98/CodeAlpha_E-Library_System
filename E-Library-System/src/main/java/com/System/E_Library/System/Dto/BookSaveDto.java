@@ -15,4 +15,16 @@ public class BookSaveDto {
 
     
     private int publisherId;
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public int getPublisherId() {
+        return publisherId;
+    }
 }

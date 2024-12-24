@@ -18,5 +18,19 @@ public class BookUpdateDto {
     
     private int publisherId;
 
-    public Integer getPublisherId;
+    public int getPublisherId() {
+        return publisherId;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
 }

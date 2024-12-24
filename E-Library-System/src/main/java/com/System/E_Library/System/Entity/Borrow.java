@@ -1,6 +1,6 @@
 package com.System.E_Library.System.Entity;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -14,59 +14,110 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="borrow")
+@Table(name = "borrow")
 public class Borrow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "borrowId", length = 11) // Rename the primary key column
+    private int borrowId;
+
+    @Column(name = "bookTitle")
+    private String bookTitle;
+
+    @Column(name = "authorName")
+    private String authorName;
+
+    @Column(name = "publisherName")
+    private String publisherName;
+
+    @Column(name = "borrowerName")
+    private String borrowerName;
+
+    @Column(name = "borrowDate")
+    private Date borrowDate;
+
+    @Column(name = "returnDate")
+    private Date returnDate;
+
+    @Column(name = "fine")
+    private int fine;
 
     @ManyToOne
-    @JoinColumn(name = "bookId")
+    @JoinColumn(name = "bookId", insertable = false, updatable = false) // Prevent duplication
     private Book book;
 
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 
-    @Column(name = "borrowDate")
-    private LocalDate borrowDate;
-
-    @Column(name = "returnDate")
-    private LocalDate returnDate;
-
-
-
     @OneToMany(mappedBy = "borrow")
     private Set<Fine> fines;
 
+    // Getters and Setters
 
+    public int getBorrowId() {
+        return borrowId;
+    }
 
-    public Borrow(int id, Book book, User user, LocalDate borrowDate, LocalDate returnDate) {
-        this.id = id;
-        this.book = book;
-        this.user = user;
+    public void setBorrowId(int borrowId) {
+        this.borrowId = borrowId;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
+    }
+
+    public String getBorrowerName() {
+        return borrowerName;
+    }
+
+    public void setBorrowerName(String borrowerName) {
+        this.borrowerName = borrowerName;
+    }
+
+    public Date getBorrowDate() {
+        return borrowDate;
+    }
+
+    public void setBorrowDate(Date borrowDate) {
         this.borrowDate = borrowDate;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
 
-    public Borrow(Book book, User user, LocalDate borrowDate, LocalDate returnDate) {
-        this.book = book;
-        this.user = user;
-        this.borrowDate = borrowDate;
-        this.returnDate = returnDate;
+    public int getFine() {
+        return fine;
     }
 
-    public Borrow() {
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setFine(int fine) {
+        this.fine = fine;
     }
 
     public Book getBook() {
@@ -85,30 +136,46 @@ public class Borrow {
         this.user = user;
     }
 
-    public LocalDate getBorrowDate() {
-        return borrowDate;
+    public Set<Fine> getFines() {
+        return fines;
     }
 
-    public void setBorrowDate(LocalDate borrowDate) {
-        this.borrowDate = borrowDate;
+    public void setFines(Set<Fine> fines) {
+        this.fines = fines;
     }
 
-    public LocalDate getReturnDate() {
-        return returnDate;
+    // Constructors, toString, etc.
+
+    public Borrow() {
     }
 
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
+
+    public Borrow(int bookId, String bookTitle2, String authorName2, String publisherName2, String borrowerName2,
+            Date borrowDate2, Date returnDate2, int fine2) {
+                this.borrowId = borrowId;
+                this.bookTitle = bookTitle;
+                this.authorName = authorName;
+                this.publisherName = publisherName;
+                this.borrowerName = borrowerName;
+                this.borrowDate = borrowDate;
+                this.returnDate = returnDate;
+                this.fine = fine;
+                this.book = book;
+                this.user = user;
+                this.fines = fines;
     }
 
     @Override
     public String toString() {
-        return "Borrow{" +
-                "id=" + id +
-                ", book=" + book +
-                ", user=" + user +
-                ", borrowDate=" + borrowDate +
-                ", returnDate=" + returnDate +
-                '}';
+        return "Borrow [borrowId=" + borrowId + ", bookTitle=" + bookTitle + ", authorName=" + authorName
+                + ", publisherName=" + publisherName + ", borrowerName=" + borrowerName + ", borrowDate=" + borrowDate
+                + ", returnDate=" + returnDate + ", fine=" + fine + ", book=" + book + ", user=" + user + ", fines="
+                + fines + "]";
     }
+
+    public int getBookId() {
+       return getBookId();
+    }
+
+   
 }

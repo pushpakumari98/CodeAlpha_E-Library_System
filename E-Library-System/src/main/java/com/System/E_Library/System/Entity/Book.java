@@ -90,4 +90,8 @@ public class Book {
         return "Book [bookId=" + bookId + ", bookTitle=" + bookTitle + ", author=" + author + ", publisher=" + publisher
                 + "]";
     }
+
+    public String getId() {
+       return getId();
+    }
 }

@@ -10,4 +10,17 @@ import lombok.NoArgsConstructor;
 public class PublisherDto {
     private int publisherId;
     private String publisherName;
+
+    public int getPublisherId() {
+        return publisherId;
+    }
+
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+     public PublisherDto(int publisherId, String publisherName) {
+         this.publisherId = publisherId;
+         this.publisherName = publisherName;
+     }
 }

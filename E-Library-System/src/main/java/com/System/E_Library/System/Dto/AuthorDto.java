@@ -1,4 +1,5 @@
 package com.System.E_Library.System.Dto;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
@@ -13,5 +14,10 @@ public class AuthorDto {
     
     private int authorId;
     private String authorName;
+
+     public AuthorDto(int authorId, String authorName) {
+         this.authorId = authorId;
+         this.authorName = authorName;
+     }
 
 }

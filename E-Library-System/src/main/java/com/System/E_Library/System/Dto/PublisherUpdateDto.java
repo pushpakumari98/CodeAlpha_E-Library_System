@@ -11,4 +11,12 @@ import lombok.NoArgsConstructor;
 public class PublisherUpdateDto {
      private int publisherId;
      private String publisherName;
+
+     public int getPublisherId() {
+          return publisherId;
+     }
+
+     public String getPublisherName() {
+          return publisherName;
+     }
 }
