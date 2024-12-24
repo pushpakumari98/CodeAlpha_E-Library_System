@@ -23,10 +23,5 @@ public class BookDto {
     
     private Publisher publisher;
 
-     public BookDto(int bookId, String bookTitle, Author author, Publisher publisher) {
-         this.bookId = bookId;
-         this.bookTitle = bookTitle;
-         this.author = author;
-         this.publisher = publisher;
-     }
+  
 }

@@ -24,9 +24,5 @@ public class UserDto {
         return userEmail;
     }
 
-     public UserDto(int userId, String userName, String userEmail) {
-         this.userId = userId;
-         this.userName = userName;
-         this.userEmail = userEmail;
-     }
+ 
 }

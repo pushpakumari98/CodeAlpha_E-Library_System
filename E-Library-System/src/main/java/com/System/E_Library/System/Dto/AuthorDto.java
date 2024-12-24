@@ -15,9 +15,5 @@ public class AuthorDto {
     private int authorId;
     private String authorName;
 
-     public AuthorDto(int authorId, String authorName) {
-         this.authorId = authorId;
-         this.authorName = authorName;
-     }
 
 }

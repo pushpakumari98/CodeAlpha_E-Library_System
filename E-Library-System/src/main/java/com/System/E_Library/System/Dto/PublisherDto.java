@@ -19,8 +19,5 @@ public class PublisherDto {
         return publisherName;
     }
 
-     public PublisherDto(int publisherId, String publisherName) {
-         this.publisherId = publisherId;
-         this.publisherName = publisherName;
-     }
+ 
 }

@@ -56,14 +56,5 @@ public class BorrowDto {
         return Fine;
     }
 
-     public BorrowDto(int bookId, String bookTitle, String authorName, String publisherName, String borrowerName, Date borrowDate, Date returnDate, int fine) {
-         this.bookId = bookId;
-         this.bookTitle = bookTitle;
-         this.authorName = authorName;
-         this.publisherName = publisherName;
-         this.borrowerName = borrowerName;
-         this.borrowDate = borrowDate;
-         this.returnDate = returnDate;
-         Fine = fine;
-     }
+   
 }
