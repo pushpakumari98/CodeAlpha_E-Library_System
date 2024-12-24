@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> E-Library System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+          height: 100vh;
+          margin: 0;
+          background-image: url('https://cdn.pixabay.com/photo/2024/06/21/17/28/ai-generated-8844739_1280.jpg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+    
+        }
+        
+        .card {
+          background-color: rgba(255, 255, 255, 0.7); /* Adjust transparency as needed */
+          border: none;
+          padding: 10px; /* Add padding to the card */
+        }
+
+        .btn {
+          width: 50%; /* Adjust button width as needed */
+          margin: 10px auto; /* Center the buttons */
+          display: block; /* Makes the buttons take up the full width of their container */
+        }
+      </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Brand  -->
+        <a class="navbar-brand" href="#">E-Library System </a>
+    
+        <!-- Toggler/collapsible Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar- nav">
+                <li class="nav-item"><a class="nav-link" th:href="@{/save}">E-Library System</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">E-Library System</h1>
+                        <div class="text-center">
+                            <div class="d-flex flex-column">
+                                <a class="btn btn-primary" href="/books">View Books</a>
+                                <a class="btn btn-success" href="/borrow">Borrow a Book</a>
+                                <a class="btn btn-danger" href="/return">Return a Book</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
