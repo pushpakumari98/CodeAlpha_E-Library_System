@@ -2,6 +2,7 @@ package com.System.E_Library.System.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import com.System.E_Library.System.Dto.BorrowDto;
 import com.System.E_Library.System.Dto.BorrowSaveDto;
 import com.System.E_Library.System.Dto.BorrowUpdateDto;
 import com.System.E_Library.System.Entity.Borrow;
-import com.System.E_Library.System.Repo.BookRepo;
+import com.System.E_Library.System.Repo.BookRepository;
 import com.System.E_Library.System.Repo.BorrowRepo;
 import com.System.E_Library.System.Repo.UserRepo;
 import com.System.E_Library.System.Service.BorrowService;
@@ -19,7 +20,7 @@ import com.System.E_Library.System.Service.BorrowService;
 public class BorrowServiceImpl implements BorrowService {
 
     @Autowired
-    private BookRepo bookRepo;
+    private BookRepository bRepo;
 
     @Autowired
     private UserRepo userRepo;
@@ -47,7 +48,6 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     public List<BorrowDto> getAllBorrow() {
-
         List<Borrow> getBorrow = borrowRepo.findAll();
         List<BorrowDto> borrowDtoList = new ArrayList<>();
 
@@ -66,13 +66,14 @@ public class BorrowServiceImpl implements BorrowService {
         }
         return borrowDtoList;
     }
-
     @Override
     public String updateBorrow(BorrowUpdateDto borrowUpdateDto) {
-
         try {
-            if (borrowRepo.existsById(borrowUpdateDto.getBookId())) {
-                Borrow borrow = borrowRepo.getById(borrowUpdateDto.getBookId());
+            // Using findById() which returns an Optional
+            Optional<Borrow> optionalBorrow = borrowRepo.findById(borrowUpdateDto.getBookId());
+
+            if (optionalBorrow.isPresent()) {
+                Borrow borrow = optionalBorrow.get();
 
                 if (borrowUpdateDto.getBookTitle() != null) {
                     borrow.setBookTitle(borrowUpdateDto.getBookTitle());
@@ -105,4 +106,7 @@ public class BorrowServiceImpl implements BorrowService {
             return "Error while updating borrow record: " + ex.getMessage();
         }
     }
+
+
+
 }

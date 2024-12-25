@@ -1,97 +1,78 @@
+
 package com.System.E_Library.System.Entity;
 
+import jakarta.persistence.*;
+
 import java.util.Optional;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name="book")
 public class Book {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private int id;
+	private String name;
+	private String author;
+	private String price;
 
-    @Column(name="bookId",length=11)
-    private int bookId;
+	@ManyToOne
+	@JoinColumn(name = "publisher_id") // This is the foreign key
+	private Publisher publisher;
+	public Book(int id, String name, String author, String price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.author = author;
+		this.price = price;
+	}
+	public Book() {
+		super();
+	
+	}
 
-    @Column(name="bookTitle",length=11)
-    private String bookTitle;
+	public Book(String bookTitle, Optional<Author> byId, Optional<Publisher> byId1) {
+	}
 
-
-    @ManyToOne
-    @JoinColumn(name="authorId")
-    private Author author;
-
-    @ManyToOne
-    @JoinColumn(name="publisherId")
-    private Publisher publisher;
-
-    public Book(int bookId, String bookTitle, Author author, Publisher publisher) {
-        this.bookId = bookId;
-        this.bookTitle = bookTitle;
-        this.author = author;
-        this.publisher = publisher;
-    }
-
-    public Book(String bookTitle, Author author, Publisher publisher) {
-        this.bookTitle = bookTitle;
-        this.author = author;
-        this.publisher = publisher;
-    }
-
-    public Book() {
-    }
-
-  
-
-    public Book(String bookTitle2, Optional<Author> byId, Optional<Publisher> byId2) {
-        
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
     public String getBookTitle() {
-        return bookTitle;
+		return this.name;
     }
 
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
-    }
+	public void setPublisher(Publisher byId) {
+	}
 
-    public Author getAuthor() {
-        return author;
-    }
+	public void setBookTitle(String bookTitle) {
+	}
 
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
+	public int getBookId() {
+		return this.id;
+	}
 
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
-
-    @Override
-    public String toString() {
-        return "Book [bookId=" + bookId + ", bookTitle=" + bookTitle + ", author=" + author + ", publisher=" + publisher
-                + "]";
-    }
-
-    public String getId() {
-       return getId();
-    }
+	public Object getPublisher() {
+		return this.publisher;
+	}
 }

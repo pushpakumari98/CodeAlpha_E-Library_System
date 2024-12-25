@@ -46,15 +46,15 @@ public class UserServiceImpl implements UserService {
         List<UserDto> userDtoList = new ArrayList<>();
 
         for (User user : users) {
-            UserDto userDto = new UserDto(
-                user.getUserId(),
-                user.getUserName(),
-                user.getUserEmail()
-            );
+            UserDto userDto = new UserDto();
+            userDto.setUserId(user.getUserId());
+            userDto.setUserName(user.getUserName());
+            userDto.setUserEmail(user.getUserEmail());
             userDtoList.add(userDto);
         }
         return userDtoList;
     }
+
 
     @Override
     public String deleteUser(int id) {
