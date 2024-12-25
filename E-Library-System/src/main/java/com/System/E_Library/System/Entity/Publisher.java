@@ -1,5 +1,6 @@
 package com.System.E_Library.System.Entity;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -21,9 +22,9 @@ public class Publisher {
     @Column(name="publisherName",length=45)
     private String publisherName;
 
-   
-    @OneToMany(mappedBy ="publisher")
-    private Set<Book> books;
+
+    @OneToMany(mappedBy = "publisher")
+    private List<Book> books;
     
     public void setPublisherId(int publisherId) {
         this.publisherId = publisherId;

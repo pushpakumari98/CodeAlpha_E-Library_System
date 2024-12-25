@@ -29,20 +29,21 @@ public class AuthorServiceImpl  implements AuthorService {
     }
 
     @Override
-    public List<AuthorDto> getAllAuthor(){
-        List<Author> getAuthors=authorRepo.findAll();
-        List<AuthorDto> authorDtoList=new ArrayList<>();
+    public List<AuthorDto> getAllAuthor() {
+        List<Author> getAuthors = authorRepo.findAll();
+        List<AuthorDto> authorDtoList = new ArrayList<>();
 
-        for(Author author:getAuthors){
-            AuthorDto authorDto=new AuthorDto(
-            author.getAuthorId(),
-            author.getAuthorName()
+        for (Author author : getAuthors) {
+            // Use the corrected constructor
+            AuthorDto authorDto = new AuthorDto(
+                    author.getAuthorId(),
+                    author.getAuthorName()
             );
             authorDtoList.add(authorDto);
-
         }
-        return  authorDtoList;
+        return authorDtoList;
     }
+
 
     @SuppressWarnings("deprecation")
     @Override

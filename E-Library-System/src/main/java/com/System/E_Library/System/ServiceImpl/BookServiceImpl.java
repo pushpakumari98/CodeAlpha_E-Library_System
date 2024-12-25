@@ -3,16 +3,17 @@ package com.System.E_Library.System.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.System.E_Library.System.Repo.BookRepository;
+import com.System.E_Library.System.Service.MyBookListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.System.E_Library.System.Dto.BookDto;
 import com.System.E_Library.System.Dto.BookSaveDto;
 import com.System.E_Library.System.Dto.BookUpdateDto;
-
 import com.System.E_Library.System.Entity.Book;
 import com.System.E_Library.System.Repo.AuthorRepo;
-import com.System.E_Library.System.Repo.BookRepo;
+
 import com.System.E_Library.System.Repo.PublisherRepo;
 import com.System.E_Library.System.Service.BookService;
 
@@ -22,14 +23,22 @@ public class BookServiceImpl implements BookService{
     @Autowired
     private AuthorRepo authorRepo;
 
-    
+
     @Autowired
     private PublisherRepo publisherRepo;
 
+
+    @Autowired
+    private MyBookListService myBookListService;
     
     @Autowired
-    private BookRepo bookRepo;
- 
+    private BookRepository bookRepository;
+
+    @Override
+    public void save(Book b) {
+
+    }
+
     @Override
     public String addBook(BookSaveDto bookSaveDto) {
 
@@ -38,14 +47,14 @@ public class BookServiceImpl implements BookService{
           authorRepo.findById(bookSaveDto.getAuthorId()),
           publisherRepo.findById(bookSaveDto.getPublisherId())
        );
-       bookRepo.save(book);
+       bookRepository.save(book);
        return book.getBookTitle();
     }
 
 
     @Override
     public List<BookDto> getAllBook() {
-       List<Book> getBooks=bookRepo.findAll();
+       List<Book> getBooks=bookRepository.findAll();
         List<BookDto> bookDtoList=new ArrayList<>();
 
         for(Book book:getBooks){
@@ -62,15 +71,25 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
+    public Book getBookById(int id) {
+        return null;
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
+
+    @Override
     public String updateBook(BookUpdateDto bookUpdateDto) {
 
-        if(bookRepo.existsById(bookUpdateDto.getBookId()))
+        if(bookRepository.existsById(bookUpdateDto.getBookId()))
         {
-            Book book= bookRepo.getById(bookUpdateDto.getBookId());
+            Book book= bookRepository.getById(bookUpdateDto.getBookId());
             book.setBookTitle(bookUpdateDto.getBookTitle());
-            book.setAuthor(authorRepo.getById((bookUpdateDto.getAuthorId())));
+            book.setAuthor(String.valueOf(authorRepo.getById((bookUpdateDto.getAuthorId()))));
             book.setPublisher(publisherRepo.getById(bookUpdateDto.getPublisherId()));
-            bookRepo.save(book);
+            bookRepository.save(book);
             return book.getBookTitle();
         }
         else{
@@ -81,9 +100,9 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public String deleteBook(int id) {
-        if(bookRepo.existsById(id))
+        if(bookRepository.existsById(id))
         {
-          bookRepo.deleteById(id);
+          bookRepository.deleteById(id);
         }
         else{
             System.out.println(" Book Id Not Found");
@@ -92,13 +111,23 @@ public class BookServiceImpl implements BookService{
     }
 
 
-    @Override
-    public List<Book> getAllBooks() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllBooks'");
-    }
+//    @Override
+//    public List<BookDto> getAllBooks() {
+//        List<Book> getBooks = bookRepository.findAll();
+//        List<BookDto> bookDtoList = new ArrayList<>();
+//
+//        for (Book book : getBooks) {
+//            // Use the corrected constructor
+//            BookDto bookDto = new BookDto(
+//                    book.getBookId(),
+//                    book.getBookTitle()
+//            );
+//            bookDtoList.add(bookDto);
+//        }
+//        return bookDtoList;
+//    }
 
 
-   
-    
+
+
 }

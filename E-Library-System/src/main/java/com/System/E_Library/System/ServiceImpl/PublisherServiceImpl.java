@@ -26,20 +26,19 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public List<PublisherDto> getAllPublisher(){
-        List<Publisher> getPublishers=publisherRepo.findAll();
-        List<PublisherDto> publisherDtoList=new ArrayList<>();
+    public List<PublisherDto> getAllPublisher() {
+        List<Publisher> getPublishers = publisherRepo.findAll();
+        List<PublisherDto> publisherDtoList = new ArrayList<>();
 
-        for(Publisher publisher:getPublishers){
-            PublisherDto publisherDto=new PublisherDto(
-            publisher.getPublisherId(),
-            publisher.getPublisherName()
-            );
+        for (Publisher publisher : getPublishers) {
+            PublisherDto publisherDto = new PublisherDto(); // No-argument constructor
+            publisherDto.setPublisherId(publisher.getPublisherId());
+            publisherDto.setPublisherName(publisher.getPublisherName());
             publisherDtoList.add(publisherDto);
-
         }
-        return  publisherDtoList;
+        return publisherDtoList;
     }
+
 
     @SuppressWarnings("deprecation")
     @Override

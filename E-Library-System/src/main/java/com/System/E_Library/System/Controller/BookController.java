@@ -1,56 +1,99 @@
 package com.System.E_Library.System.Controller;
+import com.System.E_Library.System.Dto.BookDto;
+import com.System.E_Library.System.Service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.System.E_Library.System.Entity.Book;
+import com.System.E_Library.System.Entity.MyBookList;
+import com.System.E_Library.System.Service.MyBookListService;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.System.E_Library.System.Dto.BookDto;
-import com.System.E_Library.System.Dto.BookSaveDto;
-import com.System.E_Library.System.Dto.BookUpdateDto;
-import com.System.E_Library.System.Service.BookService;
-
-@RestController
-@CrossOrigin
-@RequestMapping("api/v1/book")
+@Controller
 public class BookController {
-     @Autowired
-     private BookService bookService;
 
+    @Autowired
+    private BookService bookService;
 
-    @PostMapping(path="/save")
-    public String saveBook(@RequestBody BookSaveDto bookSaveDto){
-        String bookTitle=bookService.addBook(bookSaveDto);
-        return "Added Successfully";
+    @Autowired
+    private MyBookListService myBookListService;
+
+    @GetMapping("/return")
+    public String returnPage() {
+        return "return"; // Renders return.html
     }
 
-    @GetMapping(path="/getAllBook")
-    public List<BookDto> getAllBook()
-    {
-        List<BookDto> allBooks=bookService.getAllBook();
-        return allBooks;
+    @PostMapping("/return")
+    public String returnBook(@RequestParam("bookId") String bookId) {
+        System.out.println("Returning book with ID: " + bookId);
+        // Logic for returning the book can be added here
+        return "redirect:/"; // Redirects back to homepage
     }
 
-    @PutMapping("/update")
-    public String updateBook(@RequestBody BookUpdateDto bookUpdateDto){
-       String bookTitle=bookService.updateBook(bookUpdateDto);
-       return bookTitle;
-    }
-    @DeleteMapping("/delete/{id}")
-    public String deleteBook(@PathVariable(value="id")int id){
-        String bookTitle=bookService.deleteBook(id);
-        return "deleteId";
+    @GetMapping("/borrow")
+    public String borrowPage() {
+        return "borrow"; // Renders borrow.html
     }
 
-   
+    @PostMapping("/borrow")
+    public String borrowBook(@RequestParam("bookId") String bookId) {
+        System.out.println("Borrowing book with ID: " + bookId);
+        // Logic for borrowing the book can be added here
+        return "redirect:/"; // Redirects back to homepage
+    }
+
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping("/book_register")
+    public String bookRegister() {
+        return "bookRegister";
+    }
+
+    @GetMapping("/available_books")
+    public ModelAndView getAllBook() {
+        List<BookDto> list = bookService.getAllBook();
+        System.out.println("Books fetched: " + list);
+        return new ModelAndView("bookList", "book", list);
+    }
+
+    @PostMapping("/save")
+    public String addBook(@ModelAttribute Book book) {
+        bookService.save(book);
+        return "redirect:/available_books";
+    }
+
+    @GetMapping("/my_books")
+    public String getMyBooks(Model model) {
+        List<MyBookList> list = myBookListService.getAllMyBooks();
+        model.addAttribute("book", list);
+        return "myBooks";
+    }
+
+    @RequestMapping("/mylist/{id}")
+    public String getMyList(@PathVariable("id") int id) {
+        Book book = bookService.getBookById(id);
+        MyBookList myBook = new MyBookList(book.getId(), book.getName(), book.getAuthor(), book.getPrice());
+        myBookListService.saveMyBooks(myBook);
+        return "redirect:/my_books";
+    }
+
+    @RequestMapping("/editBook/{id}")
+    public String editBook(@PathVariable("id") int id, Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        return "bookEdit";
+    }
+
+    @RequestMapping("/deleteBook/{id}")
+    public String deleteBook(@PathVariable("id") int id) {
+        bookService.deleteById(id);
+        return "redirect:/available_books";
+    }
 }
-
-    

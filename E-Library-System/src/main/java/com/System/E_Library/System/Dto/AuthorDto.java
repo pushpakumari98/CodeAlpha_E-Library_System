@@ -1,11 +1,6 @@
 package com.System.E_Library.System.Dto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Data;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+
 
 public class AuthorDto {
 
@@ -13,5 +8,30 @@ public class AuthorDto {
     
     private int authorId;
     private String authorName;
+    // No-argument constructor (required for frameworks like Hibernate)
+    public AuthorDto() {}
+
+    // Constructor with parameters
+    public AuthorDto(int authorId, String authorName) {
+        this.authorId = authorId;
+        this.authorName = authorName;
+    }
+
+    // Getters and Setters
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
 }

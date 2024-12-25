@@ -11,4 +11,12 @@ public class AuthorUpdateDto {
     
     private int authorId;
     private String authorName;
+
+    public int getAuthorId() {
+        return authorId;
+    }
+    public String getAuthorName(){
+        return getAuthorName();
+
+    }
 }
