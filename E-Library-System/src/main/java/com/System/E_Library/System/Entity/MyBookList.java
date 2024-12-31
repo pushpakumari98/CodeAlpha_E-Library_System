@@ -13,6 +13,7 @@ public class MyBookList {
 	private String name;
 	private String author;
 	private String price;
+	private boolean isReturned;
 	public MyBookList() {
 		super();
 	
@@ -47,5 +48,13 @@ public class MyBookList {
 	}
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	public boolean isReturned() {
+		return isReturned;
+	}
+
+	public void setReturned(boolean returned) {
+		isReturned = returned;
 	}
 }

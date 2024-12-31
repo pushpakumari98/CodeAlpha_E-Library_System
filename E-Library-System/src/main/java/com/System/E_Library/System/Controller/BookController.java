@@ -72,7 +72,8 @@ public class BookController {
     @GetMapping("/my_books")
     public String getMyBooks(Model model) {
         List<MyBookList> list = myBookListService.getAllMyBooks();
-        model.addAttribute("book", list);
+        List<MyBookList> list1 = list.stream().filter(l->!l.isReturned()).toList();
+        model.addAttribute("book", list1);
         return "myBooks";
     }
 

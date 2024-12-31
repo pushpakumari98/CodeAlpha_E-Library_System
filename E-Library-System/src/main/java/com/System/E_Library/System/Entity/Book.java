@@ -15,6 +15,7 @@ public class Book {
 	private String author;
 	private String price;
 
+
 	@ManyToOne
 	@JoinColumn(name = "publisher_id") // This is the foreign key
 	private Publisher publisher;
@@ -72,7 +73,9 @@ public class Book {
 		return this.id;
 	}
 
-	public Object getPublisher() {
+	public Publisher getPublisher() {
 		return this.publisher;
 	}
+
+
 }

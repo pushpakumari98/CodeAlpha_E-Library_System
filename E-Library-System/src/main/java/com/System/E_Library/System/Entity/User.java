@@ -1,26 +1,27 @@
 package com.System.E_Library.System.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name="userInfo")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-
-    @Column(name="userId",length=11)
+    @Column(name="userId")
     private int userId;
 
-    @Column(name="userName",length=11)
+
+    @Column(name="userName",length=50)
     private String userName;
 
-    @Column(name="userEmail",length=11)
+    @Column(name="userEmail",length=50)
     private String userEmail;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Borrow> borrows = new ArrayList<>();
 
     public User(int userId, String userName, String userEmail) {
         this.userId = userId;
@@ -65,6 +66,12 @@ public class User {
         return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + "]";
     }
 
-    
-    
+
+    public List<Borrow> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(List<Borrow> borrows) {
+        this.borrows = borrows;
+    }
 }
