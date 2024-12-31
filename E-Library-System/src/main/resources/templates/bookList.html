@@ -7,6 +7,68 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Book Store</title>
     <script src="https://kit.fontawesome.com/0faddc1af8.js" crossorigin="anonymous"></script>
+
+    <style>
+          body {
+        height: 80vh;
+        margin: 0;
+        background-image: url('https://cdn.pixabay.com/photo/2016/11/29/07/22/bible-1868070_640.jpg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+   }
+      .container {
+          position: absolute;
+          top: 40%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: rgba(255, 255, 255, 0.7);
+          padding: 10px;
+          border-radius: 10px;
+          text-align: center;
+          width: 1200px;
+      }
+      .form-group {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 5px;
+          text-align: left;
+
+      }
+      label {
+          margin-bottom: 3px;
+          font-weight: bold;
+      }
+      input {
+          padding: 30px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          width: 150%;
+      }
+      button {
+          margin-top: 15px;
+          padding: 8px 20px;
+          border: none;
+          background-color: #007BFF;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+      button:hover {
+          background-color: #0056b3;
+      }
+      a {
+          display: block;
+          margin-top: 10px;
+          text-decoration: none;
+          color: #007BFF;
+      }
+      a:hover {
+          text-decoration: underline;
+      }
+
+    </style>
 </head>
 <body>
 
@@ -41,10 +103,10 @@
         <thead>
         <tr>
             <th scope="col">Id</th>
-            <th scope="col">Name</th>
+            <th scope="col">Book Name</th>
             <th scope="col">Author</th>
             <th scope="col">Price</th>
-            <th scope="col">Action</th>
+            <th scope="col">Borrow Book </th>
         </tr>
         </thead>
         <tbody>
@@ -53,11 +115,10 @@
             <td th:text="${b.bookTitle}"></td>
             <td th:text="${b.author}"></td>
             <td>100$</td>
-            <td><a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.bookId})}">Add To Mybook</a>
+            <td><a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.bookId})}">Borrow Book</a>
                 <a style="color:blue" th:href="@{/editBook/{id}(id=${b.bookId})}"><i class="fa-solid fa-pen-to-square ms-4"></i></a>
                 <a style="color:red" th:href="@{/deleteBook/{id}(id=${b.bookId})}"><i class="fa-solid fa-trash ms-4"></i></a>
             </td>
-            `
 
         </tr>
 
