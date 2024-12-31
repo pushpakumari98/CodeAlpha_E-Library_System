@@ -18,6 +18,6 @@ public interface MyBookListService {
 	public void saveMyBooks(MyBookList book);
 	
 	public List<MyBookList> getAllMyBooks();
-	
-	public void deleteById(int id);
+
+	public void returnMyBook(int id);
 }

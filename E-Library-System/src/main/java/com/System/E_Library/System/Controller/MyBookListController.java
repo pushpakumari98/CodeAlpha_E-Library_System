@@ -15,9 +15,9 @@ public class MyBookListController {
 	@Autowired
 	private MyBookListService myBookListService;
 	
-	@RequestMapping("/deleteMyList/{id}")
+	@RequestMapping("/returnmybook/{id}")
 	public String deleteMyList(@PathVariable("id") int id) {
-		myBookListService.deleteById(id);
+		myBookListService.returnMyBook(id);
 		return "redirect:/my_books";
 	}
 }

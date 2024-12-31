@@ -16,6 +16,7 @@ public class MyBookListServiceImpl implements MyBookListService {
 
     @Override
     public void saveMyBooks(MyBookList book) {
+        book.setReturned(false);
         myBookListRepository.save(book);
     }
 
@@ -25,7 +26,9 @@ public class MyBookListServiceImpl implements MyBookListService {
     }
 
     @Override
-    public void deleteById(int id) {
-        myBookListRepository.deleteById(id);
+    public void returnMyBook(int id) {
+       MyBookList mybook = myBookListRepository.findById(id).get();
+       mybook.setReturned(true);
+       myBookListRepository.save(mybook);
     }
 }

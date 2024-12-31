@@ -3,6 +3,7 @@ package com.System.E_Library.System.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.System.E_Library.System.Entity.Publisher;
 import com.System.E_Library.System.Repo.BookRepository;
 import com.System.E_Library.System.Service.MyBookListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public void save(Book b) {
-
+        bookRepository.save(b);
     }
 
     @Override
@@ -54,16 +55,15 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<BookDto> getAllBook() {
-       List<Book> getBooks=bookRepository.findAll();
+        List<Book> getBooks=bookRepository.findAll();
         List<BookDto> bookDtoList=new ArrayList<>();
 
         for(Book book:getBooks){
-            BookDto bookDto=new BookDto(
-               book.getBookId(),
-               book.getBookTitle(),
-               book.getAuthor(),
-               book.getPublisher()
-            );
+            BookDto bookDto = new BookDto();
+            bookDto.setBookId(book.getId());
+            bookDto.setBookTitle(book.getBookTitle());
+            bookDto.setAuthor(book.getAuthor()!=null?book.getAuthor():"N/A");
+            bookDto.setPublisher(book.getPublisher()!=null?book.getPublisher():new Publisher());
             bookDtoList.add(bookDto);
 
         }
@@ -72,12 +72,12 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Book getBookById(int id) {
-        return null;
+        return bookRepository.findById(id).get();
     }
 
     @Override
     public void deleteById(int id) {
-
+        bookRepository.deleteById(id);
     }
 
     @Override
